@@ -148,7 +148,7 @@ export const testimonials = [
     id: 1,
     name: 'Sarah Chen',
     role: 'Investor',
-    text: 'Coinbase made it incredibly easy for me to start investing in cryptocurrency. The platform is intuitive and secure.',
+    text: 'This app made it incredibly easy for me to start learning about cryptocurrency. The interface is intuitive and approachable.',
     avatar: '👩‍💼',
   },
   {
@@ -162,7 +162,7 @@ export const testimonials = [
     id: 3,
     name: 'Emma Williams',
     role: 'Crypto Enthusiast',
-    text: 'I love the educational content and community features. Coinbase is my go-to platform.',
+    text: 'I love the educational content and community features. This demo is my go-to practice platform.',
     avatar: '👩‍🎓',
   },
 ];
@@ -177,9 +177,9 @@ export const navLinks = [
 export const footerLinks = {
   Product: [
     { name: 'Buy & Sell', href: '#' },
-    { name: 'Coinbase Exchange', href: '#' },
+    { name: 'Exchange', href: '#' },
     { name: 'Advanced Trade', href: '#' },
-    { name: 'Coinbase Cloud', href: '#' },
+    { name: 'Developer Cloud', href: '#' },
   ],
   Company: [
     { name: 'About', href: '#' },

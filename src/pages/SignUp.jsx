@@ -108,6 +108,9 @@ const SignUp = () => {
                 <div>
                   <p className="text-sm font-semibold text-gray-700 mb-4">Step 1 of 2</p>
                   <h2 className="text-xl font-bold text-cb-dark mb-4">What is your email address?</h2>
+                  <p className="text-xs text-orange-600 mb-2 font-medium">
+                    Demo app - do not use your real password
+                  </p>
                 </div>
 
                 <Input
@@ -213,14 +216,11 @@ const SignUp = () => {
                     className="flex-1"
                     onClick={() => setStep(1)}
                   >
-                    
-                    <p className="text-xs text-orange-500 mb-4 italic">
-                    Note: This is a demo app. Please use a fake email and password for testing purposes.
-                          </p>
-                      <button type="submit">Sign Up</button>
                     Back
                   </Button>
-                  
+                  <Button type="submit" variant="primary" size="lg" isLoading={isLoading} className="flex-1">
+                    Sign Up
+                  </Button>
                 </div>
               </>
             )}

@@ -118,7 +118,7 @@ const Home = () => {
       <section className="py-20 bg-gray-50">
         <div className="container-max">
           <div className="mb-12 text-center">
-            <h2 className="text-h2 mb-4">Why choose Coinbase?</h2>
+            <h2 className="text-h2 mb-4">Why choose Crypto App?</h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
               We prioritize security, simplicity, and customer support
             </p>
@@ -192,7 +192,7 @@ const Home = () => {
           <div className="mb-12 text-center">
             <h2 className="text-h2 mb-4">What our users say</h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
-              Join millions of people who trust Coinbase
+              Join users learning and exploring crypto with confidence
             </p>
           </div>
 
@@ -220,7 +220,7 @@ const Home = () => {
         <div className="container-max text-center">
           <h2 className="text-h2 mb-6">Ready to start investing?</h2>
           <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-            Join millions of users who trade cryptocurrency on Coinbase
+            Join a growing community trading cryptocurrency on this demo platform
           </p>
           <Link to="/signup">
             <Button size="lg" variant="secondary" className="text-cb-dark">

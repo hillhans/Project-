@@ -20,7 +20,7 @@ const Footer = () => {
                   d="M20.032 28.5c-4.705 0-8.516-3.804-8.516-8.5s3.81-8.5 8.516-8.5a8.51 8.51 0 0 1 8.388 7.083H37C36.276 9.857 28.96 3 20.032 3 10.629 3 3 10.615 3 20s7.629 17 17.032 17C28.959 37 36.276 30.143 37 21.417h-8.58a8.51 8.51 0 0 1-8.388 7.083"
                 />
               </svg>
-              <span className="text-xl font-bold text-cb-dark">Coinbase</span>
+              <span className="text-xl font-bold text-cb-dark">Crypto App</span>
             </div>
             <p className="text-gray-600 text-sm">
               The easiest way to buy and sell cryptocurrency. Secure and trusted by millions.
@@ -48,7 +48,7 @@ const Footer = () => {
         <div className="border-t border-gray-200 pt-8">
           {/* Social Links */}
           <div className="flex items-center justify-between flex-col md:flex-row gap-4">
-            <p className="text-gray-600 text-sm">© 2024 Coinbase. All rights reserved.</p>
+            <p className="text-gray-600 text-sm">© 2026 Crypto App Student Project.</p>
             <div className="flex gap-6">
               <a href="#" className="text-gray-600 hover:text-cb-primary transition-colors">
                 <FiTwitter size={20} />
@@ -63,6 +63,12 @@ const Footer = () => {
           </div>
         </div>
       </div>
+<div className="mt-8 pt-8 border-t border-gray-700 text-center text-xs text-gray-400">
+  <p>DISCLAIMER: This project is part of a school assignment. All data shown is mock data.</p>
+  <p className="mt-2 text-red-400 font-semibold">
+    DO NOT enter real personal or financial information on this site.
+  </p>
+</div>
     </footer>
   )
 }

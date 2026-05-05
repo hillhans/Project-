@@ -65,10 +65,11 @@ const SignIn = () => {
         {/* Header */}
         <div className="text-center mb-8">
           <Link to="/" className="inline-block text-3xl font-bold text-cb-primary mb-4 hover:opacity-80">
-            ₿ Coinbase
+            Crypto App
           </Link>
           <h1 className="text-3xl font-bold text-cb-dark">Sign in</h1>
           <p className="text-gray-600 mt-2">Welcome back to your crypto wallet</p>
+          <p className="text-xs text-orange-600 mt-2 font-medium">Demo app - do not use your real password</p>
         </div>
 
         {/* Form */}
@@ -104,12 +105,6 @@ const SignIn = () => {
                 Forgot password?
               </a>
             </div>
-            
-              <p className="text-xs text-orange-500 mb-4 italic">
-                    Note: This is a demo app. Please use a fake password for testing purposes.
-                 </p>
-                        <button type="submit">Sign In</button>
-
             <Button type="submit" variant="primary" size="lg" isLoading={isLoading} className="w-full">
               Sign In
             </Button>

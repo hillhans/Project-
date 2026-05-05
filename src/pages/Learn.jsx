@@ -115,7 +115,7 @@ const Learn = () => {
                 },
                 {
                   q: 'Is cryptocurrency safe?',
-                  a: 'Cryptocurrency transactions are secured by blockchain technology. Coinbase also provides insurance coverage for digital assets.',
+                  a: 'Cryptocurrency transactions are secured by blockchain technology. Risk management and account protection still depend on the platform and your own security habits.',
                 },
                 {
                   q: 'What is the minimum investment?',
@@ -140,7 +140,7 @@ const Learn = () => {
       <section className="py-16 bg-blue-50">
         <div className="container-max text-center">
           <h2 className="text-h2 mb-4">Ready to start your crypto journey?</h2>
-          <p className="text-gray-600 text-lg mb-8">Join millions of users who trust Coinbase</p>
+          <p className="text-gray-600 text-lg mb-8">Join learners exploring crypto in this student demo</p>
           <Button size="lg" variant="primary">
             Create Free Account
           </Button>
