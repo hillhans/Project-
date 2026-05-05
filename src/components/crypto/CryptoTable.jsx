@@ -25,12 +25,11 @@ const CryptoTable = ({ cryptos = [] }) => {
         <tbody>
           {cryptos.map((crypto, index) => {
             const isPositive = crypto.change24h >= 0
-            const changeClass = isPositive ? 'text-cb-success' : 'text-cb-danger'
             const ArrowIcon = isPositive ? FiArrowUpRight : FiArrowDownRight
 
             return (
               <tr
-                key={crypto.id}
+                key={crypto._id || crypto.id || crypto.symbol}
                 className="border-b border-cb-border hover:bg-gray-50 transition-colors"
               >
                 <td className="px-6 py-4 text-sm text-gray-600">{index + 1}</td>
@@ -39,9 +38,13 @@ const CryptoTable = ({ cryptos = [] }) => {
                     to={`/asset/${crypto.symbol.toLowerCase()}`}
                     className="flex items-center gap-3 hover:text-cb-primary transition-colors"
                   >
-                    <div className="w-8 h-8 bg-blue-50 rounded-full flex items-center justify-center text-sm font-bold text-cb-primary">
-                      {crypto.image}
-                    </div>
+                    {String(crypto.image || '').startsWith('http') ? (
+                      <img src={crypto.image} alt={crypto.symbol} className="w-8 h-8 rounded-full object-cover" />
+                    ) : (
+                      <div className="w-8 h-8 bg-blue-50 rounded-full flex items-center justify-center text-sm font-bold text-cb-primary">
+                        {crypto.image || crypto.symbol?.[0]}
+                      </div>
+                    )}
                     <div>
                       <p className="font-semibold text-cb-dark">{crypto.name}</p>
                       <p className="text-xs text-gray-500">{crypto.symbol}</p>
@@ -56,10 +59,10 @@ const CryptoTable = ({ cryptos = [] }) => {
                   </Badge>
                 </td>
                 <td className="px-6 py-4 text-sm text-cb-dark">
-                  ${(crypto.marketCap / 1e9).toFixed(0)}B
+                  {crypto.marketCap ? `$${(crypto.marketCap / 1e9).toFixed(0)}B` : '--'}
                 </td>
                 <td className="px-6 py-4 text-sm text-cb-dark">
-                  ${(crypto.volume24h / 1e9).toFixed(1)}B
+                  {crypto.volume24h ? `$${(crypto.volume24h / 1e9).toFixed(1)}B` : '--'}
                 </td>
               </tr>
             )

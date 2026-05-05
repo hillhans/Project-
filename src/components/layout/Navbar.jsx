@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { FiMenu, FiSearch, FiX, FiGlobe } from 'react-icons/fi'
+import { clearAuth, getStoredToken } from '../../lib/auth'
+import { apiRequest } from '../../lib/api'
 
 const desktopLinks = [
   { name: 'Cryptocurrencies', href: '/explore' },
@@ -17,8 +19,19 @@ const desktopLinks = [
  */
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
+  const isLoggedIn = Boolean(getStoredToken())
 
   const toggleMenu = () => setIsOpen(!isOpen)
+  const handleLogout = async () => {
+    try {
+      await apiRequest('/api/auth/logout', { method: 'POST' })
+    } catch {
+      // Ignore API logout failure and clear client auth anyway.
+    } finally {
+      clearAuth()
+      window.location.href = '/signin'
+    }
+  }
 
   return (
     <nav className="sticky top-0 z-50 bg-white/95 border-b border-cb-border backdrop-blur">
@@ -73,22 +86,44 @@ const Navbar = () => {
             >
               <FiGlobe size={18} />
             </button>
-            <Link to="/signin">
-              <button
-                type="button"
-                className="h-11 px-6 rounded-full text-cb-dark font-semibold hover:bg-gray-50 transition-colors"
-              >
-                Sign in
-              </button>
-            </Link>
-            <Link to="/signup">
-              <button
-                type="button"
-                className="h-11 px-8 rounded-full bg-cb-primary text-white font-semibold hover:bg-blue-700 transition-colors"
-              >
-                Sign up
-              </button>
-            </Link>
+            {isLoggedIn ? (
+              <>
+                <Link to="/profile">
+                  <button
+                    type="button"
+                    className="h-11 px-6 rounded-full text-cb-dark font-semibold hover:bg-gray-50 transition-colors"
+                  >
+                    Profile
+                  </button>
+                </Link>
+                <button
+                  type="button"
+                  className="h-11 px-8 rounded-full bg-cb-primary text-white font-semibold hover:bg-blue-700 transition-colors"
+                  onClick={handleLogout}
+                >
+                  Logout
+                </button>
+              </>
+            ) : (
+              <>
+                <Link to="/signin">
+                  <button
+                    type="button"
+                    className="h-11 px-6 rounded-full text-cb-dark font-semibold hover:bg-gray-50 transition-colors"
+                  >
+                    Sign in
+                  </button>
+                </Link>
+                <Link to="/signup">
+                  <button
+                    type="button"
+                    className="h-11 px-8 rounded-full bg-cb-primary text-white font-semibold hover:bg-blue-700 transition-colors"
+                  >
+                    Sign up
+                  </button>
+                </Link>
+              </>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -122,22 +157,44 @@ const Navbar = () => {
                 )
               )}
               <div className="flex gap-2 pt-4 border-t border-cb-border">
-                <Link to="/signin" className="flex-1">
-                  <button
-                    type="button"
-                    className="w-full h-11 rounded-full bg-[#eef0f3] text-cb-dark font-semibold"
-                  >
-                    Sign in
-                  </button>
-                </Link>
-                <Link to="/signup" className="flex-1">
-                  <button
-                    type="button"
-                    className="w-full h-11 rounded-full bg-cb-primary text-white font-semibold"
-                  >
-                    Sign up
-                  </button>
-                </Link>
+                {isLoggedIn ? (
+                  <>
+                    <Link to="/profile" className="flex-1">
+                      <button
+                        type="button"
+                        className="w-full h-11 rounded-full bg-[#eef0f3] text-cb-dark font-semibold"
+                      >
+                        Profile
+                      </button>
+                    </Link>
+                    <button
+                      type="button"
+                      className="w-full h-11 rounded-full bg-cb-primary text-white font-semibold flex-1"
+                      onClick={handleLogout}
+                    >
+                      Logout
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <Link to="/signin" className="flex-1">
+                      <button
+                        type="button"
+                        className="w-full h-11 rounded-full bg-[#eef0f3] text-cb-dark font-semibold"
+                      >
+                        Sign in
+                      </button>
+                    </Link>
+                    <Link to="/signup" className="flex-1">
+                      <button
+                        type="button"
+                        className="w-full h-11 rounded-full bg-cb-primary text-white font-semibold"
+                      >
+                        Sign up
+                      </button>
+                    </Link>
+                  </>
+                )}
               </div>
             </div>
           </div>

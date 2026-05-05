@@ -5,6 +5,8 @@ import Input from '../components/common/Input'
 import Card from '../components/common/Card'
 import Badge from '../components/common/Badge'
 import { FiMail, FiUser, FiCheck } from 'react-icons/fi'
+import { apiRequest } from '../lib/api'
+import { storeAuth } from '../lib/auth'
 
 /**
  * SignUp Page
@@ -22,6 +24,7 @@ const SignUp = () => {
   })
   const [errors, setErrors] = useState({})
   const [isLoading, setIsLoading] = useState(false)
+  const [serverMessage, setServerMessage] = useState('')
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target
@@ -71,12 +74,24 @@ const SignUp = () => {
 
     if (Object.keys(newErrors).length === 0) {
       setIsLoading(true)
-      // Simulate API call
-      setTimeout(() => {
+      setServerMessage('')
+      try {
+        const result = await apiRequest('/api/auth/register', {
+          method: 'POST',
+          body: JSON.stringify({
+            name: formData.fullName,
+            email: formData.email,
+            password: formData.password,
+          }),
+        })
+        storeAuth(result.data, result.token)
+        alert('Account created successfully!')
+        navigate('/profile')
+      } catch (err) {
+        setServerMessage(err.message || 'Registration failed.')
+      } finally {
         setIsLoading(false)
-        alert('Account created successfully! (Demo)')
-        navigate('/')
-      }, 1500)
+      }
     } else {
       setErrors(newErrors)
     }
@@ -222,6 +237,7 @@ const SignUp = () => {
                     Sign Up
                   </Button>
                 </div>
+                {serverMessage && <p className="text-cb-danger text-sm">{serverMessage}</p>}
               </>
             )}
           </form>

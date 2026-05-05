@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
+import { useEffect } from 'react'
 import CryptoTable from '../components/crypto/CryptoTable'
 import Card from '../components/common/Card'
 import Input from '../components/common/Input'
-import { cryptoData } from '../data/mockData'
 import { FiSearch } from 'react-icons/fi'
+import { apiRequest } from '../lib/api'
 
 /**
  * Explore Page
@@ -12,6 +13,24 @@ import { FiSearch } from 'react-icons/fi'
 const Explore = () => {
   const [searchTerm, setSearchTerm] = useState('')
   const [sortBy, setSortBy] = useState('marketCap')
+  const [cryptoData, setCryptoData] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [message, setMessage] = useState('')
+
+  useEffect(() => {
+    const fetchCryptos = async () => {
+      try {
+        const result = await apiRequest('/api/crypto')
+        setCryptoData(result.data || [])
+      } catch (err) {
+        setMessage(err.message || 'Failed to load cryptocurrencies.')
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchCryptos()
+  }, [])
 
   // Filter cryptos based on search term
   const filteredCryptos = cryptoData.filter(
@@ -86,8 +105,9 @@ const Explore = () => {
             <Card>
               <p className="text-gray-600 text-sm mb-1">Avg 24h Change</p>
               <p className="text-3xl font-bold text-cb-success">
-                {(
-                  filteredCryptos.reduce((sum, c) => sum + c.change24h, 0) / filteredCryptos.length
+                {(filteredCryptos.length
+                  ? filteredCryptos.reduce((sum, c) => sum + c.change24h, 0) / filteredCryptos.length
+                  : 0
                 ).toFixed(2)}
                 %
               </p>
@@ -95,14 +115,18 @@ const Explore = () => {
           </div>
 
           {/* Crypto Table */}
-          {sortedCryptos.length > 0 ? (
+          {loading ? (
+            <Card className="text-center py-12">
+              <p className="text-gray-600 text-lg">Loading cryptocurrencies...</p>
+            </Card>
+          ) : sortedCryptos.length > 0 ? (
             <Card>
               <CryptoTable cryptos={sortedCryptos} />
             </Card>
           ) : (
             <Card className="text-center py-12">
               <p className="text-gray-600 text-lg">No cryptocurrencies found</p>
-              <p className="text-gray-500">Try adjusting your search terms</p>
+              <p className="text-gray-500">{message || 'Try adjusting your search terms'}</p>
             </Card>
           )}
         </div>

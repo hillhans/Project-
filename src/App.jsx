@@ -10,6 +10,7 @@ import AssetDetail from './pages/AssetDetail'
 import Learn from './pages/Learn'
 import SignIn from './pages/SignIn'
 import SignUp from './pages/SignUp'
+import Profile from './pages/Profile'
 
 /**
  * Main App Component
@@ -30,6 +31,7 @@ function App() {
             <Route path="/learn" element={<Learn />} />
             <Route path="/signin" element={<SignIn />} />
             <Route path="/signup" element={<SignUp />} />
+            <Route path="/profile" element={<Profile />} />
             <Route
               path="*"
               element={

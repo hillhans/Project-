@@ -4,6 +4,8 @@ import Button from '../components/common/Button'
 import Input from '../components/common/Input'
 import Card from '../components/common/Card'
 import { FiMail } from 'react-icons/fi'
+import { apiRequest } from '../lib/api'
+import { storeAuth } from '../lib/auth'
 
 /**
  * SignIn Page
@@ -17,6 +19,7 @@ const SignIn = () => {
   })
   const [errors, setErrors] = useState({})
   const [isLoading, setIsLoading] = useState(false)
+  const [serverMessage, setServerMessage] = useState('')
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -48,12 +51,22 @@ const SignIn = () => {
 
     if (Object.keys(newErrors).length === 0) {
       setIsLoading(true)
-      // Simulate API call
-      setTimeout(() => {
+      setServerMessage('')
+      try {
+        const result = await apiRequest('/api/auth/login', {
+          method: 'POST',
+          body: JSON.stringify({
+            email: formData.email,
+            password: formData.password,
+          }),
+        })
+        storeAuth(result.data, result.token)
+        navigate('/profile')
+      } catch (err) {
+        setServerMessage(err.message || 'Sign in failed.')
+      } finally {
         setIsLoading(false)
-        alert('Sign in successful! (Demo)')
-        navigate('/')
-      }, 1500)
+      }
     } else {
       setErrors(newErrors)
     }
@@ -108,6 +121,7 @@ const SignIn = () => {
             <Button type="submit" variant="primary" size="lg" isLoading={isLoading} className="w-full">
               Sign In
             </Button>
+            {serverMessage && <p className="text-cb-danger text-sm">{serverMessage}</p>}
           </form>
 
           {/* Divider */}
